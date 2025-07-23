@@ -45,7 +45,11 @@ app.get('/api/notes/:id', (request, response) => {
 })
 
 app.post('/api/notes', (request, response) => {
+  const maxId = notes.id > 0 ? Math.max(...notes.map(n => n.id)) : 0
+
   const note = request.body
+  note.id = maxId + 1
+  
   console.log(note)
   response.json(note)
 })
