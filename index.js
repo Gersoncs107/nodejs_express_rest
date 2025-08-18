@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -23,6 +24,21 @@ let notes = [
     important: true
   }
 ]
+
+const password = process.env.MONGODB_PASSWORD
+
+const url =
+  `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/noteApp?retryWrites=true&w=majority`
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 const generateId = () => {
     const maxId = notes.id > 0 ? Math.max(...notes.map(n => n.id)) : 0
