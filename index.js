@@ -39,6 +39,12 @@ const noteSchema = new mongoose.Schema({
   important: Boolean,
 })
 
+noteSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    
+  }
+})
+
 const Note = mongoose.model('Note', noteSchema)
 
 const generateId = () => {
