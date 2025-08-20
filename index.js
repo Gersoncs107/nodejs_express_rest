@@ -29,7 +29,7 @@ let notes = [
 const password = process.env.MONGODB_PASSWORD
 
 const url =
-  `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/noteApp?retryWrites=true&w=majority`
+  `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
@@ -53,7 +53,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
