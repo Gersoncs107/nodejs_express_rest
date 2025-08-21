@@ -1,9 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const Note = require('./models/note')
-require('dotenv').config()
 
 app.use(express.json())
 app.use(express.static('build'))
