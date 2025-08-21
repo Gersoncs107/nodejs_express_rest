@@ -27,13 +27,13 @@ app.use(cors())
 //   }
 // ]
 
-const password = process.env.MONGODB_PASSWORD
+// const password = process.env.MONGODB_PASSWORD
 
-const url =
-  `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/noteApp?retryWrites=true&w=majority`
+// const url =
+//   `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/noteApp?retryWrites=true&w=majority`
 
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
+// mongoose.set('strictQuery',false)
+// mongoose.connect(url)
 
 
 const generateId = () => {
