@@ -82,8 +82,9 @@ app.post('/api/notes', (request, response) => {
     important: body.important || false
   })
  
-  notes = notes.concat(note)
-  response.json(note)
+  note.save().then(savedNote => {
+    response.json(savedNote)
+  })
 })
 
 app.delete('/api/notes/:id', (request, response) => {
