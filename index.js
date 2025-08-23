@@ -63,7 +63,7 @@ app.get('/api/notes/:id', (request, response) => {
       }
     })
     .catch(error => {
-      response.status(400).send({ error: 'malformatted id' })
+      response.status(500).end()
     })
 })
 
