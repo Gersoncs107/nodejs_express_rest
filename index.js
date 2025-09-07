@@ -67,10 +67,10 @@ app.get('/api/notes/:id', (request, response, next) => {
 
 app.post('/api/notes', (request, response, next) => {
   const body = request.body
-  
+
   if(body.content === undefined){
-    return response.status(400).json({ 
-      error: 'content missing' 
+    return response.status(400).json({
+      error: 'content missing'
     })
   }
 
@@ -78,7 +78,7 @@ app.post('/api/notes', (request, response, next) => {
     content: body.content,
     important: body.important || false
   })
- 
+
   note.save().then(savedNote => {
     response.json(savedNote)
   })
@@ -86,14 +86,14 @@ app.post('/api/notes', (request, response, next) => {
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
-  const {content, important} = request.body
+  const { content, important } = request.body
 
   const note = {
     content: body.content,
     important: body.important,
   }
 
-  Note.findByIdAndUpdate(request.params.id, {content, important}, { new: true, runValidators: true, context: 'query' })
+  Note.findByIdAndUpdate(request.params.id, { content, important }, { new: true, runValidators: true, context: 'query' })
     .then(updatedNote => {
       response.json(updatedNote)
     })
@@ -109,7 +109,7 @@ app.delete('/api/notes/:id', (request, response, next) => {
 })
 
 const unknownEndpoint = ((request, response) => {
-    response.status(404).send({error: 'Unknown Endpoint'})
+    response.status(404).send({ error: 'Unknown Endpoint' })
 })
 
 const errorHandler = (error, request, response, next) => {
