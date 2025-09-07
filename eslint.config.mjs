@@ -2,7 +2,8 @@ import globals from "globals";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  {
+  eslintPluginJs.configs.recommended,
+  {    
     files: ["**/*.js"],
     ignores: ["node_modules", "dist", "build"],
     languageOptions: {
