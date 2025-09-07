@@ -11,7 +11,7 @@ export default defineConfig([
       sourceType: "module",
     },
     rules: {
-      // Add your custom rules here if needed
+      'eqeqeq': 'error'
     },
   },
 ]);
