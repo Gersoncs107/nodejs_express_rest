@@ -8,37 +8,6 @@ app.use(express.json())
 app.use(express.static('build'))
 app.use(cors())
 
-// let notes = [
-//   {
-//     id: 1,
-//     content: "HTML is easy",
-//     important: true
-//   },
-//   {
-//     id: 2,
-//     content: "Browser can execute only JavaScript",
-//     important: false
-//   },
-//   {
-//     id: 3,
-//     content: "GET and POST are the most important methods of HTTP protocol",
-//     important: true
-//   }
-// ]
-
-// const password = process.env.MONGODB_PASSWORD
-
-// const url =
-//   `mongodb+srv://gersonsilva107:${password}@cluster0.7t4jnco.mongodb.net/noteApp?retryWrites=true&w=majority`
-
-// mongoose.set('strictQuery',false)
-// mongoose.connect(url)
-
-
-const generateId = () => {
-    const maxId = notes.id > 0 ? Math.max(...notes.map(n => n.id)) : 0
-    return maxId + 1
-}
 
 app.get('/', (request, response) => {
    Note.find({}).then(notes => {
