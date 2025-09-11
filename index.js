@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const config = require('./utils/config')
+const logger = require('./utils/logger')
 const cors = require('cors')
 const Note = require('./models/note')
 
