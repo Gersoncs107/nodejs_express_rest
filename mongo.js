@@ -24,6 +24,18 @@ const note2 = new Note({
   important: false,
 })
 
+Promise.all([note1.save(), note2.save()])
+  .then(() => {
+    console.log('Notas salvas!')
+    return Note.find({})
+  })
+  .then(result => {
+    result.forEach(note => {
+      console.log(note)
+    })
+    mongoose.connection.close()
+  })
+
 // const note = new Note({
 //   content: 'Mongoose makes things easy',
 //   important: true,
@@ -34,9 +46,9 @@ const note2 = new Note({
 //   mongoose.connection.close()
 // })
 
-Note.find({}).then(result => {
-  result.forEach(note => {
-    console.log(note)
-  })
-  mongoose.connection.close()
-})
+// Note.find({}).then(result => {
+//   result.forEach(note => {
+//     console.log(note)
+//   })
+//   mongoose.connection.close()
+// })
