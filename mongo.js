@@ -16,6 +16,16 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model('Note', noteSchema)
 
+const note1 = new Note({
+  content: 'HTML is Easy',
+  important: true,
+})
+
+const note2 = new Note({
+  content: 'CSS is hard',
+  important: false,
+})
+
 // const note = new Note({
 //   content: 'Mongoose makes things easy',
 //   important: true,
