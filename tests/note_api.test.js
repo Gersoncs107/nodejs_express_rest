@@ -23,5 +23,5 @@ test('there are two notes', async () => {
 test('the first note is about HTTP methods', async () => {
   const response = await api.get('/api/notes')
 
-  expect(response.body[0].content).toBe('HTML is easy')
+  expect(response.body[0].content).toBe('HTML is Easy')
 })
