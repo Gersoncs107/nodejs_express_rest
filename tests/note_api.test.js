@@ -38,7 +38,7 @@ test('all notes are returned', async () => {
   const response = await api.get('/api/notes')
 
 
-  expect(response.body).toHaveLength(initialNotes.length)
+  expect(response.body).toHaveLength(helper.initialNotes.length)
 })
 
 test('a specific note is within the returned notes', async () => {
