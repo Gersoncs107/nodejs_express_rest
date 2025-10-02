@@ -20,7 +20,7 @@ beforeEach(async () => {
   await Note.deleteMany({})
     let noteObject = new Note(helper.initialNotes[0])
     await noteObject.save()
-    noteObject = new Note(initialNotes[1])
+    noteObject = new Note(helper.initialNotes[1])
     await noteObject.save()
 })
 
