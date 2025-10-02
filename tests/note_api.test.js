@@ -67,7 +67,7 @@ test('a valid note can be added', async () => {
 
   const contents = notesAtEnd.map(n => n.content)
   expect(contents).toContain(
-    'async/await simplifies making async calls'
+    'async/await simplifies making async calls')
 })
 
 test('note without content is not added', async () => {
