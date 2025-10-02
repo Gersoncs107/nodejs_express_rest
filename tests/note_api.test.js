@@ -30,9 +30,6 @@ test('notes are returned as json', async () => {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 })
-afterAll(() => {
-    mongoose.connection.close()
-})
 
 test('all notes are returned', async () => {
   const response = await api.get('/api/notes')
@@ -79,6 +76,10 @@ test('note without content is not added', async () => {
     .send(newNote)
     .expect(400)
 
-  const response = await api.get('/api/notes')
-  expect(response.body).toHaveLength(initialNotes.length)
+  const notesAtEnd = await helper.notesInDb()
+  expect(notesAtEnd).toHaveLength(helper.initialNotes.length)
+})
+
+afterAll(() => {
+  mongoose.connection.close()
 })
