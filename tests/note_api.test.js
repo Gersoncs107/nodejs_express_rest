@@ -61,12 +61,13 @@ test('a valid note can be added', async () => {
     .send(newNote)
     .expect(201)
     .expect('Content-Type', /application\/json/)
-  const response = await api.get('/api/notes')
 
-  const contents = response.body.map(r => r.content)
-  
-  expect(response.body).toHaveLength(initialNotes.length + 1)
-  expect(contents).toContain('async/await simplifies making async calls')
+  const notesAtEnd = await helper.notesInDb()
+  expect(notesAtEnd).toHaveLength(helper.initialNotes.length + 1)
+
+  const contents = notesAtEnd.map(n => n.content)
+  expect(contents).toContain(
+    'async/await simplifies making async calls'
 })
 
 test('note without content is not added', async () => {
