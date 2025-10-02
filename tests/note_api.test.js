@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const helpers = require('./test_helper')
+const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
 const Note = require('../models/note')
@@ -18,7 +18,7 @@ const initialNotes = [
   
 beforeEach(async () => {
   await Note.deleteMany({})
-    let noteObject = new Note(initialNotes[0])
+    let noteObject = new Note(helper.initialNotes[0])
     await noteObject.save()
     noteObject = new Note(initialNotes[1])
     await noteObject.save()
