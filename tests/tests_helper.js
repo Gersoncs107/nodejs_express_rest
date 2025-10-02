@@ -2,7 +2,7 @@ const Note = require('../models/note')
 
 const initialNotes = [
   {
-    content: 'HTML is easy',
+    content: 'HTML is Easy',
     important: false
   },
   {
