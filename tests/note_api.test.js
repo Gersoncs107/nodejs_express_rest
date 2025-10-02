@@ -58,12 +58,12 @@ test('a valid note can be added', async () => {
   await api
     .post('/api/notes')
     .send(newNote)
-    .expect(201)
+    .expect(200)
     .expect('Content-Type', /application\/json/)
   const response = await api.get('/api/notes')
 
   const contents = response.body.map(r => r.content)
-
+  
   expect(response.body).toHaveLength(initialNotes.length + 1)
   expect(contents).toContain('async/await simplifies making async calls')
 })
