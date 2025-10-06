@@ -8,14 +8,11 @@ const Note = require('../models/note')
   
 beforeEach(async () => {
   await Note.deleteMany({})
-  console.log('cleared')
 
-  helper.initialNotes.forEach(async (note) => {
-    const noteObject = new Note(note)
+  for (let note of helper.initialNotes) {
+    let noteObject = new Note(note)
     await noteObject.save()
-    console.log('saved')
-  })
-   console.log('done')
+  }
 })
 test('notes are returned as json', async () => {
     console.log('entered test')
