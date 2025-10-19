@@ -28,10 +28,13 @@ notesRouter.post('/', async (request, response, next) => {
   const note = new Note({
     content: body.content,
     important:body.important === undefined ? false : body.important,
+    user: user.id,
   })
 
   try {
     const savedNote = await note.save()
+    user.notes = user.notes.concat(savedNote._id)
+    await user.save()
     response.status(201).json(savedNote)
   } catch (exception) {
     next(exception)
