@@ -23,22 +23,29 @@ notesRouter.get('/:id', async (request, response, next) => {
 notesRouter.post('/', async (request, response, next) => {
   const body = request.body
 
-  const user = await User.findById(body.userId)
-
-  const note = new Note({
-    content: body.content,
-    important:body.important === undefined ? false : body.important,
-    user: user.id,
-  })
+  if (!body.content) {
+    return response.status(400).json({ error: 'content missing' })
+  }
 
   try {
+    const user = body.userId ? await User.findById(body.userId) : null
+    if (!user) {
+      return response.status(400).json({ error: 'user not found' })
+    }
+
+    const note = new Note({
+      content: body.content,
+      important: body.important === undefined ? false : body.important,
+      user: user.id,
+    })
+
     const savedNote = await note.save()
-    user.notes = user.notes.concat(savedNote._id)
+    user.notes = user.notes ? user.notes.concat(savedNote._id) : [savedNote._id]
     await user.save()
     response.status(201).json(savedNote)
   } catch (exception) {
     next(exception)
-  }  
+  }
 })
 
 notesRouter.delete('/:id', async (request, response, next) => {

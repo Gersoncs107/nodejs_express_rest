@@ -24,4 +24,13 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(savedUser)
 })
 
+usersRouter.delete('/:id', async (request, response, next) => {
+  try {
+    await User.findByIdAndDelete(request.params.id) 
+    response.status(204).end()
+    } catch (exception) {
+      next(exception)
+    }
+  })
+
 module.exports = usersRouter
