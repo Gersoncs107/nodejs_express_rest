@@ -6,6 +6,7 @@ const notesRouter = require('./controllers/notes')
 const usersRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
+const loginRouter = require('./controllers/login')
 const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
