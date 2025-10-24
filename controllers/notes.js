@@ -42,7 +42,7 @@ notesRouter.post('/', async (request, response, next) => {
   }
 
   try {
-    const user = body.userId ? await User.findById(body.userId) : null
+    const user = body.userId ? await User.findById(decodedToken.id) : null
     if (!user) {
       return response.status(400).json({ error: 'user not found' })
     }
