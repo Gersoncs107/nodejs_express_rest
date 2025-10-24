@@ -31,6 +31,11 @@ notesRouter.get('/:id', async (request, response, next) => {
 
 notesRouter.post('/', async (request, response, next) => {
   const body = request.body
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
 
   if (!body.content) {
     return response.status(400).json({ error: 'content missing' })
