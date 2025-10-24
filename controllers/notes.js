@@ -1,6 +1,7 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 notesRouter.get('/', async (request, response) => {
   const notes = await Note.find({}).populate('user', {username: 1, name: 1})
