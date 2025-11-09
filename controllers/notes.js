@@ -29,20 +29,58 @@ notesRouter.get('/:id', async (request, response, next) => {
   }
 })
 
+// notesRouter.post('/', async (request, response, next) => {
+//   const body = request.body
+//   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+
+//   if (!decodedToken.id) {
+//     return response.status(401).json({ error: 'token missing or invalid' })
+//   }
+
+//   if (!body.content) {
+//     return response.status(400).json({ error: 'content missing' })
+//   }
+
+//   try {
+//     const user = body.userId ? await User.findById(decodedToken.id) : null
+//     if (!user) {
+//       return response.status(400).json({ error: 'user not found' })
+//     }
+
+//     const note = new Note({
+//       content: body.content,
+//       important: body.important === undefined ? false : body.important,
+//       user: user.id,
+//     })
+
+//     const savedNote = await note.save()
+//     user.notes = user.notes ? user.notes.concat(savedNote._id) : [savedNote._id]
+//     await user.save()
+//     response.status(201).json(savedNote)
+//   } catch (exception) {
+//     next(exception)
+//   }
+// })
+
 notesRouter.post('/', async (request, response, next) => {
   const body = request.body
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token missing or invalid' })
-  }
-
-  if (!body.content) {
-    return response.status(400).json({ error: 'content missing' })
-  }
 
   try {
-    const user = body.userId ? await User.findById(decodedToken.id) : null
+    const token = getTokenFrom(request)
+    if (!token) {
+      return response.status(401).json({ error: 'token missing' })
+    }
+
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+
+    if (!body.content) {
+      return response.status(400).json({ error: 'content missing' })
+    }
+
+    const user = await User.findById(decodedToken.id)
     if (!user) {
       return response.status(400).json({ error: 'user not found' })
     }
@@ -50,7 +88,7 @@ notesRouter.post('/', async (request, response, next) => {
     const note = new Note({
       content: body.content,
       important: body.important === undefined ? false : body.important,
-      user: user.id,
+      user: user._id,
     })
 
     const savedNote = await note.save()
